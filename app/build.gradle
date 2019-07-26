@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
+
+android {
+
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\harik\\Documents\\release.jks')
+            keyPassword 'medikoe#147'
+            keyAlias = 'medikoe'
+            storePassword 'Medikoe#147'
+        }
+    }
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.harik.expenses"
+        versionCode 1
+        versionName "0.1.1"
+        minSdkVersion 21
+        targetSdkVersion 28
+    }
+    buildTypes {
+        debug {
+            debuggable true
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            versionNameSuffix "-dev"
+            applicationIdSuffix ".dev"
+            resConfigs "en", "xxhdpi"
+        }
+
+        prod {}
+    }
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+
+    def dependencies = rootProject.ext.appDependencies
+    def testDependencies = rootProject.ext.appTestDependencies
+
+    // Kotlin
+    implementation dependencies.kotlin
+
+    // AndroidX
+    implementation dependencies.appCompat
+    implementation dependencies.cardView
+    implementation dependencies.constraintLayout
+    implementation dependencies.coreKtx
+    implementation dependencies.lifecycleExtensions
+    implementation dependencies.lifecycleReactiveStreams
+    implementation dependencies.preference
+    implementation dependencies.recyclerView
+    implementation dependencies.roomRuntime
+    implementation dependencies.roomRxJava
+    implementation dependencies.workRuntime
+    implementation dependencies.workRxJava
+
+    kapt dependencies.roomCompiler
+
+    // Libraries
+    implementation dependencies.jxl
+    implementation dependencies.material
+    implementation dependencies.navigationFragment
+    implementation dependencies.navigationUi
+    implementation dependencies.rxAndroid
+    implementation dependencies.rxRelay
+    implementation dependencies.threeTen
+
+    // Testing
+    testImplementation testDependencies.jUnit
+}
